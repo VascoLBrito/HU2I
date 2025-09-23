@@ -7,20 +7,36 @@ export default function KeyScroll() {
   // tracking scroll da viewport
   const { scrollYProgress } = useScroll();
 
-  // transformar progresso do scroll em movimento (0 → 100%)
-  const translateY = useTransform(scrollYProgress, [0.7, 0.8], [0, 180]); // move 400px
-  const translateX = useTransform(scrollYProgress, [0.75, 0.8], [0, 100]); // move 150px
-  const rotate = useTransform(scrollYProgress, [0.7, 0.8], [0, 10]); // roda um pouco
+  // Ângulo limitado: 0 → π/2 (90°)
+  const angle = useTransform(
+    scrollYProgress,
+    [0.6, 0.85],
+    [Math.PI, Math.PI / 3.4]
+  );
+
+  const radius = 190; // controla o tamanho da curva
+
+  // Posição ao longo do arco
+  const translateX = useTransform(angle, (a) => Math.cos(a) * 265);
+  const translateY = useTransform(angle, (a) => Math.sin(a) * radius);
+
+  // Rotação opcional (acompanha a curva)
+  // angle varia de Math.PI até Math.PI/1.6
+  const rotate = useTransform(
+    angle,
+    [Math.PI, Math.PI / 1.8], // range do ângulo
+    [45, -60] // rotação em graus
+  );
 
   return (
-    <section className="relative  z-10 w-full h-full overflow-hidden rounded-4xl">
+    <section className="relative z-10 w-[80%] h-[80%] mx-auto overflow-hidden rounded-4xl ">
       {/* Linha tracejada como imagem de fundo */}
-      <div className="flex justify-center items-center w-full h-full rounded-full">
+      <div className="flex justify-center items-center  rounded-full">
         <Image
           src="/dotted.png"
           alt="Linha tracejada"
-          width={1000}
-          height={1000}
+          width={1800}
+          height={1800}
           className="opacity-100 aspect-square"
         />
       </div>
@@ -32,9 +48,15 @@ export default function KeyScroll() {
           y: translateY,
           rotate,
         }}
-        className="absolute top-2 -left-8"
+        className="absolute inset-0 -top-96 left-18  flex justify-center items-center translate-x-38 "
       >
-        <Image src="/chive.png" alt="Key" width={380} height={300} />
+        <Image
+          src="/chive.png"
+          alt="Key"
+          width={1800}
+          height={1800}
+          className=""
+        />
       </motion.div>
     </section>
   );

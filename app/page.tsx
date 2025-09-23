@@ -3,6 +3,9 @@ import Header from "@/components/Header";
 import Metrics from "@/components/Metrics";
 import Areas from "@/components/Areas";
 import Servicos from "@/components/ServiceKey";
+import { Parceiros } from "@/components/Parceiros";
+import { Newsletter } from "@/components/Newsletter";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -12,7 +15,9 @@ export default function Home() {
       <Metrics></Metrics>
       <Areas></Areas>
       <Servicos></Servicos>
-      <Metrics></Metrics>
+      <Parceiros></Parceiros>
+      <Newsletter></Newsletter>
+      <Footer></Footer>
     </main>
   );
 }
